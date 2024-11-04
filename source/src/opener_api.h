@@ -10,8 +10,8 @@
 #include <stdbool.h>
 
 #include "typedefs.h"
-#include "ciptypes.h"
-#include "ciperror.h"
+#include "./cip/ciptypes.h"
+#include "./cip/ciperror.h"
 
 #if defined(STM32)	/** STM32 target -> uses a struct for the network interface */
 #define TcpIpInterface struct netif
