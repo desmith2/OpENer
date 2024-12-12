@@ -28,11 +28,11 @@ OpenerEndianess g_opener_platform_endianess = kOpenerEndianessUnknown;
  *   @param buffer pointer where data should be reed.
  *   @return EIP_UINT8 data value
  */
-CipSint GetSintFromMessage(const EipUint8 **const buffer) {
+CipSint GetSintFromMessage(const EipInt8 **const buffer) {
   const unsigned char *const buffer_address = (unsigned char *) *buffer;
-  EipUint8 data = buffer_address[0];
+  EipInt8 data = (EipInt8)buffer_address[0];
   *buffer += 1;
-  return data;
+  return (CipSint)data;
 }
 
 CipByte GetByteFromMessage(const CipOctet **const buffer_address) {
