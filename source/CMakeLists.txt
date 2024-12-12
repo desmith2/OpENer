@@ -104,6 +104,9 @@ if (DOXYGEN_FOUND)
     set(DOXYGEN_OUT ${OpENer_BINARY_DIR}/opener.doxyfile)
 
     # exclude subdirectories of non active platforms depending on OpENer_PLATFORM
+    if(OpENer_PLATFORM STREQUAL "")
+        set(OpENer_PLATFORM "POSIX")
+    endif()
     set(OpENer_EXCLUDE_PATTERNS "")
     if (NOT (${OpENer_PLATFORM} STREQUAL "POSIX"))
         set(OpENer_EXCLUDE_PATTERNS "${OpENer_EXCLUDE_PATTERNS} */src/ports/POSIX/*")
