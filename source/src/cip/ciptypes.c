@@ -61,19 +61,19 @@ size_t GetCipDataTypeLength(EipUint8 type, const EipUint8 *data) {
 		case kCipString2:
 		case kCipStringN:
 			if(NULL != data){
-				length = GetIntFromMessage(&data) + 2; // string length + 2 bytes length indicator
+				length = (size_t)GetIntFromMessage(&data) + 2; // string length + 2 bytes length indicator
 			}
 			break;
 
 		case kCipShortString:
 			if(NULL != data){
-				length = GetSintFromMessage(&data) + 1; // string length + 1 byte length indicator
+				length = (size_t)GetSintFromMessage(&data) + 1; // string length + 1 byte length indicator
 			}
 			break;
 
 		case kCipEpath:
 			if(NULL != data){
-				length = GetIntFromMessage(&data) + 2; // path size + 2 bytes path size indicator
+				length = (size_t)GetIntFromMessage(&data) + 2; // path size + 2 bytes path size indicator
 			}
 			break;
 
