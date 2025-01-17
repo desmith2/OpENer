@@ -9,8 +9,8 @@
 
 #include "cipepath.h"
 
-#include "cipelectronickey.h"
 #include "endianconv.h"
+#include "cipelectronickey.h"
 #include "trace.h"
 #include <assert.h>
 
@@ -643,52 +643,58 @@ LogicalSegmentLogicalFormat CipEpathGetNeededLogicalFormatForValue(
   return logical_format;
 }
 
-// TODO: Does not match the actual interface anymore, check how to fix
-size_t CipEpathEncodeConnectionEpath(
-    const CipConnectionPathEpath *const connection_epath,
-    CipOctet **encoded_path) {
-  size_t encoded_path_length = 0;
-  {
-    SetPathSegmentType(kSegmentTypeLogicalSegment, *encoded_path);
-    SetPathLogicalSegmentLogicalType(kLogicalSegmentLogicalTypeClassId,
-                                     *encoded_path);
-    LogicalSegmentLogicalFormat logical_value =
-        CipEpathGetNeededLogicalFormatForValue(connection_epath->class_id);
-    SetPathLogicalSegmentLogicalFormat(logical_value, *encoded_path);
-    encoded_path_length += 1;
-    MoveMessageNOctets(1, (ENIPMessage *)*encoded_path);
-    CipEpathSetLogicalValue(connection_epath->class_id, logical_value,
-                            (CipMessageRouterResponse *)encoded_path);
-  }
+////TODO: Does not match the actual interface anymore, check how to fix
+//size_t CipEpathEncodeConnectionEpath(
+//  const CipConnectionPathEpath *const connection_epath,
+//  CipOctet **encoded_path) {
+//
+//  size_t encoded_path_length = 0;
+//  {
+//    SetPathSegmentType(kSegmentTypeLogicalSegment, *encoded_path);
+//    SetPathLogicalSegmentLogicalType(kLogicalSegmentLogicalTypeClassId,
+//                                     *encoded_path);
+//    LogicalSegmentLogicalFormat logical_value =
+//      CipEpathGetNeededLogicalFormatForValue(connection_epath->class_id);
+//    SetPathLogicalSegmentLogicalFormat(logical_value, *encoded_path);
+//    encoded_path_length += 1;
+//    MoveMessageNOctets(1, (ENIPMessage * const) *encoded_path);
+//    CipEpathSetLogicalValue(connection_epath->class_id,
+//                            logical_value,
+//                            *encoded_path);
+//  }
+//
+//  {
+//    SetPathSegmentType(kSegmentTypeLogicalSegment, *encoded_path);
+//    SetPathLogicalSegmentLogicalType(kLogicalSegmentLogicalTypeClassId,
+//                                     *encoded_path);
+//    LogicalSegmentLogicalFormat logical_value =
+//      CipEpathGetNeededLogicalFormatForValue(connection_epath->instance_id);
+//    SetPathLogicalSegmentLogicalFormat(logical_value, *encoded_path);
+//    encoded_path_length += 1;
+//    MoveMessageNOctets(1, (const CipOctet **) encoded_path);
+//    CipEpathSetLogicalValue(connection_epath->instance_id,
+//                            logical_value,
+//                            encoded_path);
+//  }
+//
+//  if(0 != connection_epath->attribute_id_or_connection_point) {
+//    SetPathSegmentType(kSegmentTypeLogicalSegment, *encoded_path);
+//    SetPathLogicalSegmentLogicalType(kLogicalSegmentLogicalTypeClassId,
+//                                     *encoded_path);
+//    LogicalSegmentLogicalFormat logical_value =
+//      CipEpathGetNeededLogicalFormatForValue(
+//        connection_epath->attribute_id_or_connection_point);
+//    SetPathLogicalSegmentLogicalFormat(logical_value, *encoded_path);
+//    encoded_path_length += 1;
+//    MoveMessageNOctets(1, (const CipOctet **) encoded_path);
+//    CipEpathSetLogicalValue(connection_epath->attribute_id_or_connection_point,
+//                            logical_value,
+//                            encoded_path);
+//  }
+//  return encoded_path_length += 1;
+//}
 
-  {
-    SetPathSegmentType(kSegmentTypeLogicalSegment, *encoded_path);
-    SetPathLogicalSegmentLogicalType(kLogicalSegmentLogicalTypeClassId,
-                                     *encoded_path);
-    LogicalSegmentLogicalFormat logical_value =
-        CipEpathGetNeededLogicalFormatForValue(connection_epath->instance_id);
-    SetPathLogicalSegmentLogicalFormat(logical_value, *encoded_path);
-    encoded_path_length += 1;
-    MoveMessageNOctets(1, (ENIPMessage *)*encoded_path);
-    CipEpathSetLogicalValue(connection_epath->instance_id, logical_value,
-                            (CipMessageRouterResponse *)encoded_path);
-  }
-  if (0 != connection_epath->attribute_id_or_connection_point) {
-    SetPathSegmentType(kSegmentTypeLogicalSegment, *encoded_path);
-    SetPathLogicalSegmentLogicalType(kLogicalSegmentLogicalTypeClassId,
-                                     *encoded_path);
-    LogicalSegmentLogicalFormat logical_value =
-        CipEpathGetNeededLogicalFormatForValue(
-            connection_epath->attribute_id_or_connection_point);
-    SetPathLogicalSegmentLogicalFormat(logical_value, *encoded_path);
-    encoded_path_length += 1;
-    MoveMessageNOctets(1, (ENIPMessage *)*encoded_path);
-    CipEpathSetLogicalValue(connection_epath->attribute_id_or_connection_point,
-                            logical_value,
-                            (CipMessageRouterResponse *)encoded_path);
-  }
-  return encoded_path_length += 1;
-}
+bool CipEpathEqual(const CipOctet *const path1,
 
 bool CipEpathEqual(const CipOctet *const path1, const CipUint path1_length,
                    const CipOctet *const path2, const CipUint path2_length) {
